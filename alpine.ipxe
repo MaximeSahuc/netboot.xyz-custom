@@ -1,0 +1,40 @@
+#!ipxe
+set os Alpine Linux
+set console tty0 ||
+set cmdline modules=loop,squashfs quiet nomodeset ||
+set flavor virt ||
+
+# Custom PXE server settings
+set pxe_server 192.168.0.5
+set pxe_port 8080
+
+# Detect architecture
+iseq ${buildarch} arm64 && goto arm64 ||
+cpuid --ext 29 && goto x86_64 || goto x86
+
+:arm64
+set arch aarch64 ||
+set acpi acpi=force ||
+set console ttyAMA0 ||
+goto boot_custom
+
+:x86_64
+set arch x86_64 ||
+goto boot_custom
+
+:x86
+set arch x86 ||
+goto boot_custom
+
+# Boot directly from custom PXE server
+:boot_custom
+isset ${console} && set console console=${console} ||
+set custom-url http://${pxe_server}:${pxe_port}
+echo Booting Alpine Linux from custom PXE server ${pxe_server}:${pxe_port}...
+kernel ${custom-url}/vmlinuz-${flavor} ${cmdline} ${console} ${acpi}
+initrd ${custom-url}/initramfs-${flavor}
+boot
+goto exit
+
+:exit
+exit 0
