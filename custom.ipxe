@@ -2,7 +2,7 @@
 set os Alpine Linux
 set console tty0 ||
 set cmdline modules=loop,squashfs quiet nomodeset ||
-set flavor virt ||
+set flavor alpine-lxqt ||
 
 # Custom PXE server settings
 set pxe_server 192.168.0.5
@@ -33,6 +33,7 @@ set custom-url http://${pxe_server}:${pxe_port}
 echo Booting Alpine Linux from custom PXE server ${pxe_server}:${pxe_port}...
 kernel ${custom-url}/vmlinuz-${flavor} ${cmdline} ${console} ${acpi}
 initrd ${custom-url}/initramfs-${flavor}
+modloop=${custom-url}/squashfs-${flavor}.squashfs
 boot
 goto exit
 
