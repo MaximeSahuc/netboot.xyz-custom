@@ -6,6 +6,6 @@ set squash_url ${live_endpoint}/${distro}/filesystem.squashfs
 set kernel_url ${live_endpoint}/${distro}/
 
 imgfree
-kernel ${kernel_url}vmlinuz ip=dhcp boot=casper netboot=url url=${squash_url} initrd=initrd.magic ${cmdline}
+kernel ${kernel_url}vmlinuz ip=dhcp boot=casper netboot=url url=${squash_url} initrd=initrd ${cmdline}
 initrd ${kernel_url}initrd
 boot
