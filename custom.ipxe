@@ -1,7 +1,8 @@
 #!ipxe
 
-set squash_url ${live_endpoint}/ubuntu-squash/releases/download/22.04.5-e60a4189/filesystem.squashfs
-set kernel_url ${live_endpoint}/ubuntu-squash/releases/download/22.04.5-e60a4189/
+set live_endpoint http://192.168.0.5:8080
+set squash_url dietpi/filesystem.squashfs
+set kernel_url dietpi/
 
 imgfree
 kernel ${kernel_url}vmlinuz ip=dhcp boot=casper netboot=url url=${squash_url} initrd=initrd.magic ${cmdline}
