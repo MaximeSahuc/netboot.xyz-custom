@@ -1,7 +1,9 @@
 #!ipxe
 
 set base-url http://192.168.0.5:8080
+set alpine_repo https://dl-cdn.alpinelinux.org/alpine/v3.21/main
 
-kernel ${base-url}/boot/vmlinuz-lts console=tty0 modules=loop,squashfs quiet nomodeset alpine_repo=https://dl-cdn.alpinelinux.org/alpine/v3.21/main modloop=${base-url}/boot/modloop-lts initrd=initramfs-lts
+kernel ${base-url}/boot/vmlinuz-lts modloop=${base-url}/boot/modloop-lts ip=dhcp alpine_repo=${alpine_repo} initrd=initramfs-lts
 initrd ${base-url}/boot/initramfs-lts
+
 boot
