@@ -1,7 +1,8 @@
 #!ipxe
 
-set squash_url http://192.168.0.5:8080/dietpi/filesystem.squashfs
-set kernel_url http://192.168.0.5:8080/dietpi/
+set live_endpoint http://192.168.0.5:8080/
+set squash_url ${live_endpoint}dietpi/filesystem.squashfs
+set kernel_url ${live_endpoint}dietpi/
 
 imgfree
 kernel ${kernel_url}vmlinuz ip=dhcp boot=casper netboot=url url=${squash_url} initrd=initrd.magic ${cmdline}
