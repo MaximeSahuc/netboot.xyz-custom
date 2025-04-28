@@ -1,9 +1,9 @@
 #!ipxe
 
-set base-url http://192.168.0.5:8080
-set alpine_repo https://dl-cdn.alpinelinux.org/alpine/v3.21/main
+set squash_url ${live_endpoint}/ubuntu-squash/releases/download/22.04.5-e60a4189/filesystem.squashfs
+set kernel_url ${live_endpoint}/ubuntu-squash/releases/download/22.04.5-e60a4189/
 
-kernel ${base-url}/boot/vmlinuz-lts alpine_repo=${alpine_repo} modules=loop,squashfs modloop=${base-url}/boot/modloop-lts quiet nomodeset initrd=initrd.magic {cmdline}
-initrd ${base-url}/boot/initramfs-lts
-
+imgfree
+kernel ${kernel_url}vmlinuz ip=dhcp boot=casper netboot=url url=${squash_url} initrd=initrd.magic ${cmdline}
+initrd ${kernel_url}initrd
 boot
