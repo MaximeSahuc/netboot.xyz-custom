@@ -2,6 +2,6 @@
 
 set base-url http://192.168.0.5:8080
 
-kernel ${base-url}/boot/vmlinuz-virt console=tty0 modules=loop,squashfs quiet nomodeset alpine_repo=https://dl-cdn.alpinelinux.org/alpine/v3.16/main modloop=${base-url}/boot/modloop-virt
-initrd ${base-url}/boot/initramfs-virt
+kernel ${base-url}/boot/vmlinuz-lts console=tty0 modules=loop,squashfs quiet nomodeset alpine_repo=https://dl-cdn.alpinelinux.org/alpine/v3.16/main modloop=${base-url}/boot/modloop-lts
+initrd ${base-url}/boot/initramfs-lts
 boot
