@@ -1,12 +1,14 @@
 #!ipxe
-set os Alpine Linux
-set console tty0 ||
-set cmdline modules=loop,squashfs quiet nomodeset ||
-set flavor alpine-lxqt ||
-
 # Custom PXE server settings
 set pxe_server 192.168.0.5
 set pxe_port 8080
+set custom-url http://${pxe_server}:${pxe_port}
+
+set os Alpine Linux
+set console tty0 ||
+set cmdline modules=loop,squashfs quiet nomodeset modloop=${custom-url}/squashfs-${flavor}.squashfs
+ ||
+set flavor alpine-lxqt ||
 
 # Detect architecture
 iseq ${buildarch} arm64 && goto arm64 ||
@@ -29,11 +31,9 @@ goto boot_custom
 # Boot directly from custom PXE server
 :boot_custom
 isset ${console} && set console console=${console} ||
-set custom-url http://${pxe_server}:${pxe_port}
 echo Booting Alpine Linux from custom PXE server ${pxe_server}:${pxe_port}...
 kernel ${custom-url}/vmlinuz-${flavor} ${cmdline} ${console} ${acpi}
 initrd ${custom-url}/initramfs-${flavor}
-modloop=${custom-url}/squashfs-${flavor}.squashfs
 boot
 goto exit
 
