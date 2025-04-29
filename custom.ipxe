@@ -1,9 +1,8 @@
 #!ipxe
 
-set iso_url http://192.168.0.5:8080/debian/custom-debian.iso
-set boot_device boot-iso
+set protocol http
 
-imgfree
-kernel http://192.168.0.5:8080/debian/memdisk iso raw
-initrd ${iso_url}
-boot
+kernel http://192.168.0.5:8080/debian/memdisk || read void
+initrd http://192.168.0.5:8080/debian/custom-debian.iso || read void
+imgargs memdisk iso raw || read void
+boot || read void
