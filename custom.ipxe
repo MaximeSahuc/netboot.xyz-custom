@@ -4,6 +4,6 @@ set iso_url http://192.168.0.5:8080/debian/custom-debian.iso
 set boot_device boot-iso
 
 imgfree
-kernel http://boot.ipxe.org/memdisk iso raw
+kernel http://192.168.0.5:8080/debian/memdisk iso raw
 initrd ${iso_url}
 boot
