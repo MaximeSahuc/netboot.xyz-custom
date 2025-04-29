@@ -1,11 +1,11 @@
 #!ipxe
 
 set distro debian
-set live_endpoint http://192.168.0.5:8080
-set squash_url ${live_endpoint}/${distro}/filesystem.squashfs
-set kernel_url ${live_endpoint}/${distro}/
+set live_endpoint http://192.168.0.5:8080/${distro}
+set squash_url ${live_endpoint}/filesystem.squashfs
+set kernel_url ${live_endpoint}
 
 imgfree
-kernel ${kernel_url}vmlinuz ip=dhcp boot=live netboot=url url=${squash_url} initrd=initrd ${cmdline}
-initrd ${kernel_url}initrd
+kernel ${kernel_url}/vmlinuz ip=dhcp boot=live netboot=url fetch=${squash_url} initrd=initrd
+initrd ${kernel_url}/initrd
 boot
